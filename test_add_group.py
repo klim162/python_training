@@ -21,7 +21,6 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys("secret")
         wd.find_element_by_xpath("//input[@value='Login']").click()
-        wd.get("https://login.katalon.com/realms/katalon/login-actions/registration?client_id=katalon-marketing&tab_id=ox_63GUAyaA&client_data=eyJydSI6Imh0dHBzOi8va2F0YWxvbi5jb20vc2V0dXAiLCJydCI6ImNvZGUifQ")
         wd.find_element_by_link_text("groups").click()
         wd.find_element_by_name("new").click()
         wd.find_element_by_name("group_name").click()
