@@ -107,7 +107,7 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("ayear").clear()
         wd.find_element_by_name("ayear").send_keys(contact.ayear)
         # sending the result
-        wd.find_element_by_xpath("//div[@id='content']/form/input[20]").click()
+        wd.find_element_by_name("submit").click()
 
     def open_add_contact_page(self, wd):
         wd.find_element_by_link_text("add new").click()
