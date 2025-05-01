@@ -12,7 +12,7 @@ def app(request):
     
 def test_add_contact(app):
     app.session.login(username="admin", password="secret")
-    app.filling_fields(Contact(firstname="ewfweqf", middlename="erferfg", lastname="wfqwvdv",
+    app.contact.filling_fields(Contact(firstname="ewfweqf", middlename="erferfg", lastname="wfqwvdv",
                     nickname="wfefr", title="wfewqc", company="cwef", address="wfeqrr",
                     phonehome="2343", phonemobile="5432", phonework="34345", phonefax="3453",
                     email="rr@tt.oo", email2="dsfd@err.yy", email3="dvdfwe@tt.yy", homepage="fewfrew",
