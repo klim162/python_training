@@ -11,23 +11,25 @@ class TestAddContact(unittest.TestCase):
         self.wd.implicitly_wait(30)
     
     def test_add_contact(self):
-        wd = self.wd
-        self.login(wd)
-        self.filling_fields(wd, Contact(firstname="ewfweqf", middlename="erferfg", lastname="wfqwvdv",
+        self.login()
+        self.filling_fields(Contact(firstname="ewfweqf", middlename="erferfg", lastname="wfqwvdv",
                             nickname="wfefr", title="wfewqc", company="cwef", address="wfeqrr",
                             phonehome="2343", phonemobile="5432", phonework="34345", phonefax="3453",
                             email="rr@tt.oo", email2="dsfd@err.yy", email3="dvdfwe@tt.yy", homepage="fewfrew",
                             bday="28", bmonth="October", byear="4000", aday="28", amonth="October", ayear="1000"))
-        self.logaut(wd)
+        self.logaut()
 
-    def logaut(self, wd):
+    def logaut(self):
+        wd = self.wd
         wd.find_element_by_link_text("Logout").click()
 
-    def return_home_page(self, wd):
+    def return_home_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("home").click()
 
-    def filling_fields(self, wd, contact):
-        self.open_add_contact_page(wd)
+    def filling_fields(self, contact):
+        wd = self.wd
+        self.open_add_contact_page()
         # add firstname
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -106,20 +108,23 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("ayear").send_keys(contact.ayear)
         # sending the result
         wd.find_element_by_name("submit").click()
-        self.return_home_page(wd)
+        self.return_home_page()
 
-    def open_add_contact_page(self, wd):
+    def open_add_contact_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("add new").click()
 
-    def login(self, wd, login="admin", password="secret"):
-        self.open_home_page(wd)
+    def login(self, login="admin", password="secret"):
+        wd = self.wd
+        self.open_home_page()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(login)
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_id("LoginForm").submit()
 
-    def open_home_page(self, wd):
+    def open_home_page(self):
+        wd = self.wd
         wd.get("http://localhost/addressbook/delete.php?part=1;")
 
     def is_element_present(self, how, what):
