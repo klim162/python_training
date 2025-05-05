@@ -102,11 +102,20 @@ class ContactHelper:
 
     def edit_first_contact(self, contact):
         wd = self.app.wd
+        # edit first contact
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         #filling fields
         self.filling_fields(contact)
         # sending the result
         wd.find_element_by_name("update").click()
+        self.return_home_page()
+
+    def delete_first_contact(self):
+        wd = self.app.wd
+        # select first contact
+        wd.find_element_by_name("selected[]").click()
+        # submit deletion
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
         self.return_home_page()
 
     def return_home_page(self):
