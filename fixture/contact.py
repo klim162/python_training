@@ -12,7 +12,7 @@ class ContactHelper:
 
     def filling_fields(self, contact):
         wd = self.app.wd
-        self.open_add_contact_page()
+        # self.open_add_contact_page()
         # add firstname
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -89,9 +89,17 @@ class ContactHelper:
         wd.find_element_by_name("ayear").click()
         wd.find_element_by_name("ayear").clear()
         wd.find_element_by_name("ayear").send_keys(contact.ayear)
+
+
+    def add_contact(self, contact):
+        wd = self.app.wd
+        self.open_add_contact_page()
+        #filling fields
+        self.filling_fields(contact)
         # sending the result
         wd.find_element_by_name("submit").click()
         self.return_home_page()
+
 
     def return_home_page(self):
         wd = self.app.wd
