@@ -14,3 +14,8 @@ class SessionHelper:
     def logaut(self):
         wd = self.app.wd
         wd.find_element_by_link_text("Logout").click()
+
+    def ensure_logaut(self):
+        wd = self.app.wd
+        if len(wd.find_elements_by_link_text("Logout")) > 0:
+            self.logaut()
