@@ -9,3 +9,8 @@ def test_edit_first_contact(app):
                     email="11@11.oo", email2="22@22.yy", email3="33@33.yy", homepage="44",
                     bday="27", bmonth="May", byear="1111", aday="11", amonth="July", ayear="2222"))
     app.session.logaut()
+
+def test_edit_firstname_first_contact(app):
+    app.session.login(username="admin", password="secret")
+    app.contact.edit_first_contact(Contact(firstname="new firstname"))
+    app.session.logaut()
