@@ -2,15 +2,11 @@ from model.contact import Contact
 
 
 def test_edit_first_contact(app):
-    app.session.login(username="admin", password="secret")
     app.contact.edit_first_contact(Contact(firstname="111111", middlename="2222", lastname="3333",
                     nickname="4444", title="5555", company="6666", address="7777",
                     phonehome="888", phonemobile="999", phonework="1010", phonefax="1111",
                     email="11@11.oo", email2="22@22.yy", email3="33@33.yy", homepage="44",
                     bday="27", bmonth="May", byear="1111", aday="11", amonth="July", ayear="2222"))
-    app.session.logaut()
 
 def test_edit_firstname_first_contact(app):
-    app.session.login(username="admin", password="secret")
     app.contact.edit_first_contact(Contact(firstname="new firstname"))
-    app.session.logaut()
