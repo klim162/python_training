@@ -57,6 +57,7 @@ class ContactHelper:
         # sending the result
         wd.find_element_by_name("submit").click()
         self.return_home_page()
+        self.contact_cashe = None
 
     def edit_first_contact(self, contact):
         wd = self.app.wd
@@ -67,6 +68,7 @@ class ContactHelper:
         # sending the result
         wd.find_element_by_name("update").click()
         self.return_home_page()
+        self.contact_cashe = None
 
     def delete_first_contact(self):
         wd = self.app.wd
@@ -75,6 +77,7 @@ class ContactHelper:
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         self.return_home_page()
+        self.contact_cashe = None
 
     def return_home_page(self):
         wd = self.app.wd
@@ -86,14 +89,17 @@ class ContactHelper:
         self.return_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
+    contact_cashe = None
+
     def get_contact_list(self):
-        wd = self.app.wd
-        self.return_home_page()
-        contacts = []
-        for element in wd.find_elements_by_xpath("//tr[@name='entry']"):
-            sub_elements = element.find_elements_by_tag_name("td")
-            id = sub_elements[0].get_attribute("id")
-            lastname_text = sub_elements[1].text
-            firstname_text = sub_elements[2].text
-            contacts.append(Contact(firstname=firstname_text, lastname=lastname_text, id=id))
-        return contacts
+        if self.contact_cashe is None:
+            wd = self.app.wd
+            self.return_home_page()
+            self.contact_cashe = []
+            for element in wd.find_elements_by_xpath("//tr[@name='entry']"):
+                sub_elements = element.find_elements_by_tag_name("td")
+                id = sub_elements[0].get_attribute("id")
+                lastname_text = sub_elements[1].text
+                firstname_text = sub_elements[2].text
+                self.contact_cashe.append(Contact(firstname=firstname_text, lastname=lastname_text, id=id))
+        return list(self.contact_cashe)
