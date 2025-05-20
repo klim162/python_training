@@ -84,7 +84,7 @@ class ContactHelper:
         wd = self.app.wd
         self.select_contact_by_index(index)
         # submit deletion
-        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.find_element_by_css_selector('input[value="Delete"]').click()
         self.return_home_page()
         self.contact_cashe = None
 
