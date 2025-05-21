@@ -114,7 +114,8 @@ class ContactHelper:
             self.contact_cashe = []
             for element in wd.find_elements_by_name("entry"):
                 sub_elements = element.find_elements_by_tag_name("td")
-                id = sub_elements[0].get_attribute("id")
+                # id = sub_elements[0].get_attribute("id")
+                id = sub_elements[0].find_element_by_tag_name("input").get_attribute("value")
                 lastname_text = sub_elements[1].text
                 firstname_text = sub_elements[2].text
                 address = sub_elements[3].text
