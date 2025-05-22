@@ -10,8 +10,8 @@ class Application:
             self.wd = webdriver.Firefox()
         elif browser == "chrome":
             self.wd = webdriver.Chrome("/Users/a.klimanov/Downloads/chromedriver-mac-arm64/chromedriver")
-        # elif browser == "safari"
-        #     self.wd = webdriver.Safari()
+        elif browser == "safari":
+            self.wd = webdriver.Safari()
         else:
             raise ValueError("Unrecognized browser %s" % browser)
         self.wd.implicitly_wait(0.5)
