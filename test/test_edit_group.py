@@ -7,9 +7,8 @@ def test_edit_group(app, db):
         app.group.create(Group(name="test_name"))
     old_groups = db.get_group_list()
     group_random = random.choice(old_groups)
-    index = next((i for i, g in enumerate(old_groups) if g.id == group_random.id), None)
     group = Group(name="name", header="header", footer="footer", id=group_random.id)
     app.group.edit_group_by_id(group, group_random.id)
     new_groups = db.get_group_list()
-    old_groups[index] = group
+    old_groups[old_groups.index(group_random)] = group
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
