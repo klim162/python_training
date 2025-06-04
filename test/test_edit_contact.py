@@ -2,7 +2,7 @@ from model.contact import Contact
 import random
 
 
-def test_edit_contact_by_id(app, db):
+def test_edit_contact_by_id(app, db, check_ui):
     if len(db.get_contact_list()) == 0:
         app.contact.add_contact(Contact(firstname="test_first"))
     old_contacts = db.get_contact_list()
@@ -15,4 +15,10 @@ def test_edit_contact_by_id(app, db):
     app.contact.edit_contact_by_id(contact, contact.id)
     new_contacts = db.get_contact_list()
     old_contacts[old_contacts.index(contact_random)] = contact
-    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+    def clean(contact):
+        return Contact(id=contact.id, firstname=contact.firstname.strip(), lastname=contact.lastname.strip(),
+                       address=contact.address, all_mail=contact.all_mail, all_phones=contact.all_phones)
+    assert old_contacts == new_contacts
+    # assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+    if check_ui:
+        assert sorted(map(clean, new_contacts), key=Contact.id_or_max) == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
