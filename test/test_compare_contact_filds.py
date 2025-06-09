@@ -1,5 +1,3 @@
-import re
-from random import randrange
 from model.contact import Contact
 
 def test_contact_filds_on_home_page(app, db):
