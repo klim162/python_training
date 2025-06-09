@@ -177,3 +177,28 @@ class ContactHelper:
         phonefax = re.search(r'name="fax"\s+value="([^"]+)"', text).group(1)
         return Contact(phonehome=phonehome, phonemobile=phonemobile,
                        phonework=phonework, phonefax=phonefax)
+
+    def select_add_group_by_id(self, group_id):
+        wd = self.app.wd
+        wd.find_element_by_name("to_group").click()
+        wd.find_element_by_css_selector('select[name="to_group"] option[value="%s"]' % group_id).click()
+
+    def select_group_by_id(self, group_id):
+        wd = self.app.wd
+        wd.find_element_by_name("group").click()
+        wd.find_element_by_css_selector('select[name="group"] option[value="%s"]' % group_id).click()
+
+
+    def add_contact_to_group(self, contact_id, group_id):
+        wd = self.app.wd
+        self.select_contact_by_id(contact_id)
+        self.select_add_group_by_id(group_id)
+        wd.find_element_by_name("add").click()
+        self.return_home_page()
+
+    def del_contact_from_group(self, contact_id, group_id):
+        wd = self.app.wd
+        self.select_group_by_id(group_id)
+        self.select_contact_by_id(contact_id)
+        wd.find_element_by_name("remove").click()
+        self.return_home_page()
