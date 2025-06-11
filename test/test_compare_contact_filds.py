@@ -8,13 +8,13 @@ def test_contact_filds_on_home_page(app, db):
                     phonehome="2343", phonemobile="5432", phonework="34345", phonefax="3453",
                     email="rr@tt.oo", email2="dsfd@err.yy", email3="dvdfwe@tt.yy", homepage="fewfrew",
                     bday="28", bmonth="October", byear="4000", aday="28", amonth="October", ayear="1000"))
-    def clear1(contact):
+    def clear_db(contact):
         return Contact(id=contact.id, firstname=contact.firstname.strip(), lastname=contact.lastname.strip(),
                        address=contact.address, all_mail=merge_email_on_home_page(contact),
                        all_phones=merge_phones_like_on_home_page(contact))
 
     contacts_from_home_page = sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
-    contacts_from_db = sorted(map(clear1, db.get_contact_list()), key=Contact.id_or_max)
+    contacts_from_db = sorted(map(clear_db, db.get_contact_list()), key=Contact.id_or_max)
     for i in range(len(contacts_from_home_page)):
         assert contacts_from_db[i].lastname == contacts_from_home_page[i].lastname
         assert contacts_from_db[i].firstname == contacts_from_home_page[i].firstname
