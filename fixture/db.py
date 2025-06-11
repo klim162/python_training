@@ -33,8 +33,9 @@ class DbFixture():
                 (id, firstname, lastname, address, email, email2, email3, home, mobile, work) = row
                 all_mail = "\n".join([email, email2, email3])
                 all_phones = "\n".join([home, mobile, work])
-                list.append(Contact(id=str(id), firstname=firstname, lastname=lastname, address=address,
-                                    all_mail=all_mail, all_phones=all_phones))
+                list.append(Contact(id=str(id), firstname=firstname, lastname=lastname, address=address, email=email,
+                                    email2=email2, email3=email3, all_mail=all_mail, phonehome=home,
+                                    phonemobile=mobile, phonework=work, all_phones=all_phones))
         finally:
             cursor.close()
         return list
