@@ -11,20 +11,20 @@ class ContactHelper:
 
     def open_add_contact_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
+        wd.find_element(By.LINK_TEXT, "add new").click()
 
     def filling_contact_form(self, fild_name, text):
         wd = self.app.wd
         if text is not None:
-            wd.find_element_by_name(fild_name).click()
-            wd.find_element_by_name(fild_name).clear()
-            wd.find_element_by_name(fild_name).send_keys(text)
+            wd.find_element(By.NAME, fild_name).click()
+            wd.find_element(By.NAME, fild_name).clear()
+            wd.find_element(By.NAME, fild_name).send_keys(text)
 
     def fild_select_list(self, fild_name, text):
         wd = self.app.wd
         if text is not None:
-            wd.find_element_by_name(fild_name).click()
-            Select(wd.find_element_by_name(fild_name)).select_by_visible_text(text)
+            wd.find_element(By.NAME, fild_name).click()
+            Select(wd.find_element(By.NAME, fild_name)).select_by_visible_text(text)
 
     def filling_fields(self, contact):
         wd = self.app.wd
@@ -57,7 +57,7 @@ class ContactHelper:
         #filling fields
         self.filling_fields(contact)
         # sending the result
-        wd.find_element_by_name("submit").click()
+        wd.find_element(By.NAME, "submit").click()
         self.return_home_page()
         self.contact_cashe = None
 
@@ -72,14 +72,14 @@ class ContactHelper:
     def open_contact_by_id(self, id):
         wd = self.app.wd
         self.return_home_page()
-        wd.find_element_by_css_selector('a[href="edit.php?id=%s"]' % id).click()
+        wd.find_element(By.CSS_SELECTOR, 'a[href="edit.php?id=%s"]' % id).click()
 
     def edit_contact_by_index(self, contact, index):
         wd = self.app.wd
         self.open_contact_by_index(index)
         self.filling_fields(contact)
         # sending the result
-        wd.find_element_by_name("update").click()
+        wd.find_element(By.NAME, "update").click()
         self.return_home_page()
         self.contact_cashe = None
 
@@ -88,7 +88,7 @@ class ContactHelper:
         self.open_contact_by_id(id)
         self.filling_fields(contact)
         # sending the result
-        wd.find_element_by_name("update").click()
+        wd.find_element(By.NAME, "update").click()
         self.return_home_page()
         self.contact_cashe = None
 
@@ -98,7 +98,7 @@ class ContactHelper:
 
     def select_contact_by_id(self, id):
         wd = self.app.wd
-        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+        wd.find_element(By.CSS_SELECTOR, "input[value='%s']" % id).click()
 
     def delete_first_contact(self):
         self.delete_contact_by_index(0)
@@ -107,7 +107,7 @@ class ContactHelper:
         wd = self.app.wd
         self.select_contact_by_index(index)
         # submit deletion
-        wd.find_element_by_css_selector('input[value="Delete"]').click()
+        wd.find_element(By.CSS_SELECTOR, 'input[value="Delete"]').click()
         self.return_home_page()
         self.contact_cashe = None
 
@@ -115,14 +115,14 @@ class ContactHelper:
         wd = self.app.wd
         self.select_contact_by_id(id)
         # submit deletion
-        wd.find_element_by_css_selector('input[value="Delete"]').click()
+        wd.find_element(By.CSS_SELECTOR, 'input[value="Delete"]').click()
         self.return_home_page()
         self.contact_cashe = None
 
     def return_home_page(self):
         wd = self.app.wd
         if not wd.current_url.endswith("/index.php"):
-            wd.find_element_by_link_text("home").click()
+            wd.find_element(By.LINK_TEXT, "home").click()
 
     def count(self):
         wd = self.app.wd
@@ -139,7 +139,7 @@ class ContactHelper:
             for element in wd.find_elements(By.NAME, "entry"):
                 sub_elements = element.find_elements(By.TAG_NAME, "td")
                 # id = sub_elements[0].get_attribute("id")
-                id = sub_elements[0].find_element_by_tag_name("input").get_attribute("value")
+                id = sub_elements[0].find_element(By.TAG_NAME, "input").get_attribute("value")
                 lastname_text = sub_elements[1].text
                 firstname_text = sub_elements[2].text
                 address = sub_elements[3].text
@@ -153,24 +153,24 @@ class ContactHelper:
     def get_contact_info_from_edit_page(self, index):
         wd = self.app.wd
         self.open_contact_by_index(index)
-        firstname = wd.find_element_by_name("firstname").get_attribute("value")
-        lastname = wd.find_element_by_name("lastname").get_attribute("value")
-        address = wd.find_element_by_name("address").get_attribute("value")
-        id = wd.find_element_by_name("id").get_attribute("value")
-        phonehome = wd.find_element_by_name("home").get_attribute("value")
-        phonemobile = wd.find_element_by_name("mobile").get_attribute("value")
-        phonework = wd.find_element_by_name("work").get_attribute("value")
-        phonefax = wd.find_element_by_name("fax").get_attribute("value")
-        email = wd.find_element_by_name("email").get_attribute("value")
-        email2 = wd.find_element_by_name("email2").get_attribute("value")
-        email3 = wd.find_element_by_name("email3").get_attribute("value")
+        firstname = wd.find_element(By.NAME, "firstname").get_attribute("value")
+        lastname = wd.find_element(By.NAME, "lastname").get_attribute("value")
+        address = wd.find_element(By.NAME, "address").get_attribute("value")
+        id = wd.find_element(By.NAME, "id").get_attribute("value")
+        phonehome = wd.find_element(By.NAME, "home").get_attribute("value")
+        phonemobile = wd.find_element(By.NAME, "mobile").get_attribute("value")
+        phonework = wd.find_element(By.NAME, "work").get_attribute("value")
+        phonefax = wd.find_element(By.NAME, "fax").get_attribute("value")
+        email = wd.find_element(By.NAME, "email").get_attribute("value")
+        email2 = wd.find_element(By.NAME, "email2").get_attribute("value")
+        email3 = wd.find_element(By.NAME, "email3").get_attribute("value")
         return Contact(firstname=firstname, lastname=lastname, id=id, address=address, email=email, email2=email2,
                        email3=email3, phonehome=phonehome, phonemobile=phonemobile, phonework=phonework, phonefax=phonefax)
 
     def get_contact_from_view_page(self, index):
         wd = self.app.wd
         self.open_contact_by_index(index)
-        text = wd.find_element_by_id("content").get_attribute("innerHTML")
+        text = wd.find_element(By.ID, "content").get_attribute("innerHTML")
         phonehome = re.search(r'name="home"\s+value="([^"]+)"', text).group(1)
         phonemobile = re.search(r'name="mobile"\s+value="([^"]+)"', text).group(1)
         phonework = re.search(r'name="work"\s+value="([^"]+)"', text).group(1)
@@ -180,25 +180,25 @@ class ContactHelper:
 
     def select_add_group_by_id(self, group_id):
         wd = self.app.wd
-        wd.find_element_by_name("to_group").click()
-        wd.find_element_by_css_selector('select[name="to_group"] option[value="%s"]' % group_id).click()
+        wd.find_element(By.NAME, "to_group").click()
+        wd.find_element(By.CSS_SELECTOR, 'select[name="to_group"] option[value="%s"]' % group_id).click()
 
     def select_group_by_id(self, group_id):
         wd = self.app.wd
-        wd.find_element_by_name("group").click()
-        wd.find_element_by_css_selector('select[name="group"] option[value="%s"]' % group_id).click()
+        wd.find_element(By.NAME, "group").click()
+        wd.find_element(By.CSS_SELECTOR, 'select[name="group"] option[value="%s"]' % group_id).click()
 
 
     def add_contact_to_group(self, contact_id, group_id):
         wd = self.app.wd
         self.select_contact_by_id(contact_id)
         self.select_add_group_by_id(group_id)
-        wd.find_element_by_name("add").click()
+        wd.find_element(By.NAME, "add").click()
         self.return_home_page()
 
     def del_contact_from_group(self, contact_id, group_id):
         wd = self.app.wd
         self.select_group_by_id(group_id)
         self.select_contact_by_id(contact_id)
-        wd.find_element_by_name("remove").click()
+        wd.find_element(By.NAME, "remove").click()
         self.return_home_page()
