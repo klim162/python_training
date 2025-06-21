@@ -34,7 +34,7 @@ def random_day():
     return str(random.randint(1,31))
 
 def random_year():
-    symbols = string.ascii_letters + string.digits + " "
+    symbols = string.ascii_letters + string.digits
     return "".join([random.choice(symbols) for i in range (random.randrange(4))])
 
 

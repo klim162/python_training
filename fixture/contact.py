@@ -1,5 +1,6 @@
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
+from selenium.webdriver.common.by import By
 import re
 
 
@@ -66,13 +67,12 @@ class ContactHelper:
     def open_contact_by_index(self, index):
         wd = self.app.wd
         self.return_home_page()
-        wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
+        wd.find_elements(By.XPATH, "//img[@alt='Edit']")[index].click()
 
     def open_contact_by_id(self, id):
         wd = self.app.wd
         self.return_home_page()
         wd.find_element_by_css_selector('a[href="edit.php?id=%s"]' % id).click()
-        # wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
 
     def edit_contact_by_index(self, contact, index):
         wd = self.app.wd
@@ -94,7 +94,7 @@ class ContactHelper:
 
     def select_contact_by_index(self, index):
         wd = self.app.wd
-        wd.find_elements_by_name("selected[]")[index].click()
+        wd.find_element(By.NAME, "selected[]")[index].click()
 
     def select_contact_by_id(self, id):
         wd = self.app.wd
@@ -127,7 +127,7 @@ class ContactHelper:
     def count(self):
         wd = self.app.wd
         self.return_home_page()
-        return len(wd.find_elements_by_name("selected[]"))
+        return len(wd.find_elements(By.NAME, "selected[]"))
 
     contact_cashe = None
 
@@ -136,8 +136,8 @@ class ContactHelper:
             wd = self.app.wd
             self.return_home_page()
             self.contact_cashe = []
-            for element in wd.find_elements_by_name("entry"):
-                sub_elements = element.find_elements_by_tag_name("td")
+            for element in wd.find_elements(By.NAME, "entry"):
+                sub_elements = element.find_elements(By.TAG_NAME, "td")
                 # id = sub_elements[0].get_attribute("id")
                 id = sub_elements[0].find_element_by_tag_name("input").get_attribute("value")
                 lastname_text = sub_elements[1].text

@@ -1,4 +1,5 @@
 from model.group import Group
+from selenium.webdriver.common.by import By
 
 class GroupHelper:
 
@@ -7,7 +8,7 @@ class GroupHelper:
 
     def open_groups_page(self):
         wd = self.app.wd
-        if not (wd.current_url.endswith("/group.php") and len(wd.find_elements_by_name("new")) > 0):
+        if not (wd.current_url.endswith("/group.php") and len(wd.find_elements(By.NAME, "new")) > 0):
             wd.find_element_by_link_text("groups").click()
 
     def change_field_value(self, fild_name, text):
@@ -36,7 +37,7 @@ class GroupHelper:
 
     def select_group_by_index(self, index):
         wd = self.app.wd
-        wd.find_elements_by_name("selected[]")[index].click()
+        wd.	find_elements(By.NAME, "selected[]")[index].click()
 
     def select_group_by_id(self, id):
         wd = self.app.wd
@@ -99,7 +100,7 @@ class GroupHelper:
     def count(self):
         wd = self.app.wd
         self.open_groups_page()
-        return len(wd.find_elements_by_name("selected[]"))
+        return len(wd.find_elements(By.NAME, "selected[]"))
 
     group_cache = None
 
@@ -108,7 +109,7 @@ class GroupHelper:
             wd = self.app.wd
             self.open_groups_page()
             self.group_cache = []
-            for element in wd.find_elements_by_css_selector("span.group"):
+            for element in wd.find_elements(By.CSS_SELECTOR, "span.group"):
                 text = element.text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 self.group_cache.append(Group(name=text, id=id))
