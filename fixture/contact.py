@@ -113,6 +113,7 @@ class ContactHelper:
 
     def delete_contact_by_id(self, id):
         wd = self.app.wd
+        self.return_home_page()
         self.select_contact_by_id(id)
         # submit deletion
         wd.find_element(By.CSS_SELECTOR, 'input[value="Delete"]').click()
@@ -198,6 +199,7 @@ class ContactHelper:
 
     def del_contact_from_group(self, contact_id, group_id):
         wd = self.app.wd
+        self.return_home_page()
         self.select_group_by_id(group_id)
         self.select_contact_by_id(contact_id)
         wd.find_element(By.NAME, "remove").click()
